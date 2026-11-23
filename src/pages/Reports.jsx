@@ -32,6 +32,12 @@ import { exportToCSV } from '../utils/exportCSV';
 export default function Reports() {
   const [recentReports, setRecentReports] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [stats, setStats] = useState({
+    materials: 0,
+    batches: 0,
+    shipments: 0,
+    customers: 0
+  });
 
   // Custom Report Form state
   const [reportType, setReportType] = useState('Shipment Performance');
@@ -42,6 +48,13 @@ export default function Reports() {
     async function loadReports() {
       const data = await api.getReports();
       setRecentReports(data);
+      const store = api.getRawStore();
+      setStats({
+        materials: store.materials.length,
+        batches: store.batches.length,
+        shipments: store.shipments.length,
+        customers: store.customers.length
+      });
     }
     loadReports();
   }, []);
@@ -91,25 +104,25 @@ export default function Reports() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard
           title="Total Materials"
-          value="--"
+          value={stats.materials}
           icon={Boxes}
           color="emerald"
         />
         <KPICard
           title="Total Batches"
-          value="--"
+          value={stats.batches}
           icon={Layers}
           color="blue"
         />
         <KPICard
           title="Total Shipments"
-          value="--"
+          value={stats.shipments}
           icon={Truck}
           color="purple"
         />
         <KPICard
           title="Total Customers"
-          value="--"
+          value={stats.customers}
           icon={Users}
           color="rose"
         />

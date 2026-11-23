@@ -211,25 +211,25 @@ export default function Events() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard
           title="Total Events"
-          value="--"
+          value={events.length}
           icon={CalendarClock}
           color="emerald"
         />
         <KPICard
-          title="Today's Events"
-          value="--"
+          title="Recent Events"
+          value={events.filter((e) => e.timestamp?.includes('2025') || e.timestamp?.includes('Jan')).length}
           icon={Activity}
           color="blue"
         />
         <KPICard
           title="Exceptions"
-          value="--"
+          value={events.filter((e) => e.status === 'Failed' || e.status === 'Delayed' || e.type?.includes('Delay') || e.type?.includes('Alert') || e.type?.includes('Discrepancy')).length}
           icon={AlertTriangle}
           color="rose"
         />
         <KPICard
           title="Completed"
-          value="--"
+          value={events.filter((e) => e.status === 'Completed' || e.status === 'Passed').length}
           icon={CheckCircle2}
           color="purple"
         />

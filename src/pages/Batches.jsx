@@ -207,25 +207,25 @@ export default function Batches() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard
           title="Total Batches"
-          value="--"
+          value={batches.length}
           icon={Layers}
           color="blue"
         />
         <KPICard
           title="Active Batches"
-          value="--"
+          value={batches.filter((b) => b.status === 'Active').length}
           icon={CheckCircle2}
           color="emerald"
         />
         <KPICard
           title="In Transit"
-          value="--"
+          value={batches.filter((b) => b.status === 'In Transit').length}
           icon={Truck}
           color="purple"
         />
         <KPICard
           title="Completed"
-          value="--"
+          value={batches.filter((b) => b.status === 'Completed').length}
           icon={FileCheck}
           color="orange"
         />

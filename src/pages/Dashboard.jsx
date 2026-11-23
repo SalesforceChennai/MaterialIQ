@@ -22,12 +22,27 @@ import { api } from '../services/api';
 export default function Dashboard() {
   const navigate = useNavigate();
   const [selectedEntity, setSelectedEntity] = useState(null);
+  const [stats, setStats] = useState({
+    materials: 0,
+    batches: 0,
+    products: 0,
+    shipments: 0,
+    customers: 0
+  });
   const [recentEvents, setRecentEvents] = useState([]);
   const [activeShipments, setActiveShipments] = useState([]);
   const [traceSearchInput, setTraceSearchInput] = useState('');
 
   useEffect(() => {
     async function loadData() {
+      const store = api.getRawStore();
+      setStats({
+        materials: store.materials.length,
+        batches: store.batches.length,
+        products: store.products.length,
+        shipments: store.shipments.filter(s => s.status !== 'Delivered').length,
+        customers: store.customers.length
+      });
       const events = await api.getEvents();
       const shipments = await api.getShipments();
       setRecentEvents(events.slice(0, 5));
@@ -65,31 +80,31 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <KPICard
           title="Total Materials"
-          value="--"
+          value={stats.materials}
           icon={Boxes}
           color="emerald"
         />
         <KPICard
           title="Production Batches"
-          value="--"
+          value={stats.batches}
           icon={Layers}
           color="blue"
         />
         <KPICard
           title="Finished Products"
-          value="--"
+          value={stats.products}
           icon={Package}
           color="orange"
         />
         <KPICard
           title="Active Shipments"
-          value="--"
+          value={stats.shipments}
           icon={Truck}
           color="purple"
         />
         <KPICard
           title="Customers"
-          value="--"
+          value={stats.customers}
           icon={Users}
           color="rose"
         />

@@ -196,25 +196,25 @@ export default function Customers() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard
           title="Total Customers"
-          value="--"
+          value={customers.length}
           icon={Users}
           color="rose"
         />
         <KPICard
           title="Active Customers"
-          value="--"
+          value={customers.filter((c) => c.status === 'Active').length}
           icon={CheckCircle2}
           color="emerald"
         />
         <KPICard
           title="New Customers"
-          value="--"
+          value={customers.filter((c) => c.status === 'New' || c.status === 'Pending').length}
           icon={Building2}
           color="blue"
         />
         <KPICard
           title="Inactive Customers"
-          value="--"
+          value={customers.filter((c) => c.status === 'Inactive').length}
           icon={Clock}
           color="purple"
         />

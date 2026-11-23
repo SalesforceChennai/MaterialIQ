@@ -192,25 +192,25 @@ export default function Products() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard
           title="Total Products"
-          value="--"
+          value={products.length}
           icon={Package}
           color="orange"
         />
         <KPICard
           title="Active Products"
-          value="--"
+          value={products.filter((p) => p.status === 'In Stock').length}
           icon={Tag}
           color="emerald"
         />
         <KPICard
           title="Low Stock"
-          value="--"
+          value={products.filter((p) => p.status === 'Low Stock' || (p.currentStock < 50 && p.currentStock > 0)).length}
           icon={TrendingUp}
           color="blue"
         />
         <KPICard
           title="Product Categories"
-          value="--"
+          value={new Set(products.map((p) => p.category).filter(Boolean)).size}
           icon={Layers}
           color="purple"
         />

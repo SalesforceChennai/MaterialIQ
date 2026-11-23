@@ -239,25 +239,25 @@ export default function Shipments() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard
           title="Total Shipments"
-          value="--"
+          value={shipments.length}
           icon={Truck}
           color="purple"
         />
         <KPICard
           title="In Transit"
-          value="--"
+          value={shipments.filter((s) => s.status === 'In Transit').length}
           icon={Navigation}
           color="blue"
         />
         <KPICard
           title="Delivered"
-          value="--"
+          value={shipments.filter((s) => s.status === 'Delivered').length}
           icon={CheckCircle2}
           color="emerald"
         />
         <KPICard
           title="Delayed"
-          value="--"
+          value={shipments.filter((s) => s.status === 'Delayed').length}
           icon={AlertTriangle}
           color="rose"
         />

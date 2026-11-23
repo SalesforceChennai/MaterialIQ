@@ -198,25 +198,25 @@ export default function Materials() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard
           title="Total Materials"
-          value="--"
+          value={materials.length}
           icon={Boxes}
           color="emerald"
         />
         <KPICard
           title="Active Materials"
-          value="--"
+          value={materials.filter((m) => m.status === 'In Stock').length}
           icon={Warehouse}
           color="blue"
         />
         <KPICard
           title="Low Stock"
-          value="--"
+          value={materials.filter((m) => m.status === 'Low Stock' || (m.reorderLevel && m.currentStock <= m.reorderLevel && m.currentStock > 0)).length}
           icon={TrendingUp}
           color="orange"
         />
         <KPICard
           title="Out of Stock"
-          value="--"
+          value={materials.filter((m) => m.status === 'Out of Stock' || m.currentStock === 0).length}
           icon={Clock}
           color="rose"
         />
